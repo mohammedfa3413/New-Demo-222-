@@ -6,6 +6,7 @@ const CountryApp = () => {
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Fetch countries from API
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -13,12 +14,15 @@ const CountryApp = () => {
         setCountries(response.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
+        // Log error to console
+        console.error('API call failed');
       }
     };
 
     fetchCountries();
   }, []);
 
+  // Filter countries based on search term
   const filteredCountries = countries.filter(country =>
     country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -34,6 +38,9 @@ const CountryApp = () => {
         className="search-input"
       />
       <div className="country-list">
+        {filteredCountries.length === 0 && searchTerm && (
+          <p>No countries found</p>
+        )}
         {filteredCountries.map((country) => (
           <div key={country.cca3} className="countryCard">
             <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className="country-flag" />
