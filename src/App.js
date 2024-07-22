@@ -14,8 +14,7 @@ const CountryApp = () => {
         setCountries(response.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
-        // Log error to console
-        console.error('API call failed');
+        console.log('API call failed'); // Optional: for testing error handling
       }
     };
 
